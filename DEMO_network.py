@@ -26,6 +26,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 scaler_minmax = MinMaxScaler(feature_range=(-1, 1))
 feat_minmax = scaler_minmax.fit_transform(feat)
 
+# 训练集与测试集构建
 feat_train, feat_test, actid_train, actid_test = \
     train_test_split(feat_minmax, actid_label, test_size=0.5)
 feat_train = torch.from_numpy(feat_train).to(torch.float).to(device)
@@ -73,6 +74,7 @@ loss = torch.nn.CrossEntropyLoss()
 # 优化器
 optimizer = torch.optim.SGD(params=net.parameters(), lr=0.02, weight_decay=0.0001)
 
+# 训练与可视化输出
 train_allacc = []
 test_allacc = []
 loss_all = []
